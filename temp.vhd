@@ -1,0 +1,11 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY mux_2_32bit IS
+  PORT (
+
+  );
+END mux_2_32bit;
+ARCHITECTURE rtl OF mux IS
+BEGIN
+
+END rtl;
