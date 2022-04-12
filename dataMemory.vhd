@@ -1,5 +1,8 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
 ENTITY dataMemory IS
 	PORT (
 		memRead, memWrite   : IN STD_LOGIC;
@@ -32,10 +35,10 @@ BEGIN
 	PROCESS (memWrite, memRead)
 	BEGIN
 		IF (memWrite = '1') THEN
-			DM((conv_integer(unsigned(address))) <= writeData;
+			DM((conv_integer(unsigned(address)))) <= writeData;
 		END IF;
 		IF (memRead = '1') THEN
-			readData <= DM((conv_integer(unsigned(address)));
+			readData <= DM((conv_integer(unsigned(address))));
 		END IF;
 	END PROCESS;
 END rtl;

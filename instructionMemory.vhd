@@ -27,5 +27,5 @@ ARCHITECTURE rtl OF instructionMemory IS
 		x"00000000"
 	);
 BEGIN
-	instruction <= IM(conv_integer(unsigned(readAddress)));
+	instruction <= IM(to_integer(unsigned(readAddress)));
 END rtl;

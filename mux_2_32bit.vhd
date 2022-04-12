@@ -1,5 +1,6 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
+
 ENTITY mux_2_32bit IS
   PORT (
     a : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -8,7 +9,7 @@ ENTITY mux_2_32bit IS
     y : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END mux_2_32bit;
-ARCHITECTURE rtl OF mux IS
+ARCHITECTURE rtl OF mux_2_32bit IS
 BEGIN
   y <= a WHEN sel = '0' ELSE
     b;
