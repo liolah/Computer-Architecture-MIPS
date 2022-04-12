@@ -1,7 +1,6 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.std_logic_arith.ALL;
-USE IEEE.NUMERIC_STD.ALL;
 
 ENTITY register_file IS
   PORT (
@@ -19,9 +18,9 @@ BEGIN
   PROCESS (wr)
   BEGIN
     IF (wr = '1') THEN
-      reg_bank(to_integer(unsigned(write_reg))) <= write_data;
+      reg_bank(conv_integer(unsigned(write_reg))) <= write_data;
     END IF;
   END PROCESS;
-  data_one <= reg_bank(to_integer(unsigned(read_reg1)));
-  data_two <= reg_bank(to_integer(unsigned(read_reg2)));
+  data_one <= reg_bank(conv_integer(unsigned(read_reg1)));
+  data_two <= reg_bank(conv_integer(unsigned(read_reg2)));
 END rtl;

@@ -1,5 +1,7 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
+USE ieee.std_logic_arith.ALL;
+
 ENTITY instructionMemory IS
 	PORT (
 		readAddress : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -27,5 +29,5 @@ ARCHITECTURE rtl OF instructionMemory IS
 		x"00000000"
 	);
 BEGIN
-	instruction <= IM(to_integer(unsigned(readAddress)));
+	instruction <= IM(conv_integer(unsigned(readAddress)));
 END rtl;
