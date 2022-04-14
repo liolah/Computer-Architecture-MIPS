@@ -4,9 +4,10 @@ USE ieee.std_logic_arith.ALL;
 
 ENTITY alu_1bit IS
 	PORT (
-		a, b, ainv, binv, cin : IN STD_LOGIC;
-		op : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-		result, cout : OUT STD_LOGIC);
+		a, b, cin, ainv, binv : STD_LOGIC;
+		op : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
+		result, cout : OUT STD_LOGIC
+	);
 END alu_1bit;
 
 ARCHITECTURE rtl OF alu_1bit IS

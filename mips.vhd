@@ -14,17 +14,17 @@ ARCHITECTURE rtl OF mips IS
   COMPONENT alu_32bit IS
     PORT (
       a, b : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
-      ainv, binv, cin : IN STD_LOGIC;
-      op : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
+      alu_op : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
       result : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-      cout : OUT STD_LOGIC);
+      zero, cout : OUT STD_LOGIC
+    );
   END COMPONENT;
 
-  COMPONENT ALU_control IS
+  COMPONENT alu_control IS
     PORT (
       funct : IN STD_LOGIC_VECTOR (5 DOWNTO 0);
-      ALUOp : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
-      ALUCtrl : OUT STD_LOGIC_VECTOR (3 DOWNTO 0));
+      aluOp : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
+      aluCtrl : OUT STD_LOGIC_VECTOR (3 DOWNTO 0));
   END COMPONENT;
 
   COMPONENT mux_2_5bit IS
@@ -124,37 +124,31 @@ ARCHITECTURE rtl OF mips IS
       y : OUT STD_LOGIC);
   END COMPONENT;
 
-  SIGNAL pcIn, pcOut, pcAdderIn, pcAdderOut, branchAdderPCAdderIn, branchAdderMemIn, branchAdderOut, pcMuxIn0, pcMuxIn1, pcMuxOut, seOut, redData1, regData2, regDataWrite, aluSrcMuxOut, aluOu, dataMemDataRead, dataMemDataWrite : STD_LOGIC_VECTOR(31 DOWNTO 0);
-  SIGNAL branchAndIn0, branchAndIn1, branchAndOut, aluCout, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, RegWrite : STD_LOGIC;
-  SIGNAL opCode : STD_LOGIC_VECTOR(5 DOWNTO 0);
-  SIGNAL rs, rt, rd, rMuxOut : STD_LOGIC_VECTOR(4 DOWNTO 0);
+  SIGNAL pcOut, instruction, pcAdderOut, branchAdderPCAdderIn, branchAdderMemIn, branchAdderOut, pcMuxIn0, pcMuxIn1, pcMuxOut, seOut, regData1, regData2, regDataWrite, aluSrcMuxOut, aluOut, dataMemDataRead : STD_LOGIC_VECTOR(31 DOWNTO 0);
   SIGNAL instructionAddress : STD_LOGIC_VECTOR(15 DOWNTO 0);
-  SIGNAL func : STD_LOGIC_VECTOR(5 DOWNTO 0);
-  SIGNAL aluOp : STD_LOGIC_VECTOR(1 DOWNTO 0);
+  SIGNAL opCode : STD_LOGIC_VECTOR(5 DOWNTO 0);
+  SIGNAL rMuxOut : STD_LOGIC_VECTOR(4 DOWNTO 0);
   SIGNAL aluControlSignal : STD_LOGIC_VECTOR(3 DOWNTO 0);
+  SIGNAL aluOp : STD_LOGIC_VECTOR(1 DOWNTO 0);
+  SIGNAL branchAndIn0, branchAndIn1, branchAndOut, aluCout, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, RegWrite : STD_LOGIC;
 
 BEGIN
-pc: pc port map(pcIn, pcOut);
-c2:  port map();
-c3:  port map();
-c4:  port map();
-c5:  port map();
-c6:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
-c1:  port map();
+  c1 : pc PORT MAP(pcMuxOut, pcOut);
+  c2 : pc_adder PORT MAP(pcOut, pcAdderOut);
+  c3 : half_adder_32bit PORT MAP(pcAdderOut, branchAdderMemIn, branchAdderPCAdderIn);
+  c4 : shl_2 PORT MAP(seOut, branchAdderMemIn);
+  c5 : and_2 PORT MAP(branch, aluCout, pcMuxSel);
+  c6 : instructionMemory PORT MAP(pcOut, instruction);
+  c7 : mux_2_5bit PORT MAP(pcOut(20 DOWNTO 16), pcOut(15 DOWNTO 11), regDst, rMuxOut);
+  c8 : register_file PORT MAP(clk, regWrite, pcOut(25 DOWNTO 21), pcOut(20 DOWNTO 16), rMuxOut, regDataWrite, regData1, regData2);
+  c9 : sign_extend PORT MAP(pcOut(15 DOWNTO 0), seOut);
+  c10 : mux_2_32bit PORT MAP(regData2, seOut, aluSrc, aluSrcMuxOut);
+  c11 : alu_control PORT MAP(pcOut(5 DOWNTO 0), aluOp, aluControlSignal);
+  c12 : mux_2_32bit PORT MAP(pcAdderOut, branchAdderOut, pcMuxSel, pcMuxOut);
+  c13 : mux_2_32bit PORT MAP(aluOut, dataMemDataRead, memToReg, regDataWrite);
+  c14 : dataMemory PORT MAP(clk, memWrite, memRead, aluOut, regData2, dataMemDataRead);
+  c15 : alu_32bit PORT MAP(regData1, aluSrcMuxOut, aluControlSignal(2), aluControlSignal(3), aluControlSignal(4), aluControlSignal(1 DOWNTO 0), aluOut, aluCout);
+  -- c16 : PORT MAP();
+  -- c17 : PORT MAP();
+  -- c1 : PORT MAP();
 END rtl;
