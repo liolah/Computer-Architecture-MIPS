@@ -124,6 +124,37 @@ ARCHITECTURE rtl OF mips IS
       y : OUT STD_LOGIC);
   END COMPONENT;
 
-BEGIN
+  SIGNAL pcIn, pcOut, pcAdderIn, pcAdderOut, branchAdderPCAdderIn, branchAdderMemIn, branchAdderOut, pcMuxIn0, pcMuxIn1, pcMuxOut, seOut, redData1, regData2, regDataWrite, aluSrcMuxOut, aluOu, dataMemDataRead, dataMemDataWrite : STD_LOGIC_VECTOR(31 DOWNTO 0);
+  SIGNAL branchAndIn0, branchAndIn1, branchAndOut, aluCout, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, RegWrite : STD_LOGIC;
+  SIGNAL opCode : STD_LOGIC_VECTOR(5 DOWNTO 0);
+  SIGNAL rs, rt, rd, rMuxOut : STD_LOGIC_VECTOR(4 DOWNTO 0);
+  SIGNAL instructionAddress : STD_LOGIC_VECTOR(15 DOWNTO 0);
+  SIGNAL func : STD_LOGIC_VECTOR(5 DOWNTO 0);
+  SIGNAL aluOp : STD_LOGIC_VECTOR(1 DOWNTO 0);
+  SIGNAL aluControlSignal : STD_LOGIC_VECTOR(3 DOWNTO 0);
 
+BEGIN
+pc: pc port map(pcIn, pcOut);
+c2:  port map();
+c3:  port map();
+c4:  port map();
+c5:  port map();
+c6:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
+c1:  port map();
 END rtl;
