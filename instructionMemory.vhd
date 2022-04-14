@@ -9,25 +9,25 @@ ENTITY instructionMemory IS
 	);
 END instructionMemory;
 ARCHITECTURE rtl OF instructionMemory IS
-	TYPE RAM_16_x_32 IS ARRAY(0 TO 15) OF STD_LOGIC_VECTOR(31 DOWNTO 0);
+	TYPE RAM_16_x_32 IS ARRAY(0 TO 15) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
 	SIGNAL IM : RAM_16_x_32 := (
-		x"01285024",
-		x"018b6825",
-		x"01285020",
-		x"01285022",
-		x"0149402a",
-		x"1211fffb",
-		x"01285024",
-		x"018b6825",
-		x"01285020",
-		x"01285022",
-		x"0149402a",
-		x"08100000",
-		x"00000000",
-		x"00000000",
-		x"00000000",
-		x"00000000"
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00",
+		x"00"
 	);
 BEGIN
-	instruction <= IM(conv_integer(unsigned(readAddress)));
+	instruction <= IM(conv_integer(unsigned(readAddress))) & IM(conv_integer(unsigned(readAddress)) + 1) & IM(conv_integer(unsigned(readAddress)) + 2) & IM(conv_integer(unsigned(readAddress)) + 3);
 END rtl;
