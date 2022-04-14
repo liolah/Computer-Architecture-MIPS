@@ -9,6 +9,7 @@ ENTITY mux_2_5bit IS
     y : OUT STD_LOGIC_VECTOR(4 DOWNTO 0)
   );
 END mux_2_5bit;
+
 ARCHITECTURE rtl OF mux_2_5bit IS
 BEGIN
   y <= a WHEN sel = '0' ELSE

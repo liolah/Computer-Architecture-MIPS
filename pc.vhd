@@ -7,6 +7,7 @@ ENTITY pc IS
 		y  : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
 	);
 END pc;
+
 ARCHITECTURE rtl OF pc IS
 BEGIN
 	y <= a;

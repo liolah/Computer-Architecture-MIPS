@@ -7,6 +7,7 @@ ENTITY shl_2 IS
     y : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END shl_2;
+
 ARCHITECTURE rtl OF shl_2 IS
 BEGIN
   y(31 DOWNTO 0) <= x(29 DOWNTO 0) & "00";

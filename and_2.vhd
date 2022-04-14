@@ -1,15 +1,16 @@
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity and_2 is 
-	port(
- 	a, b: in std_logic;
-	y: out std_logic );
-end and_2;
+ENTITY and_2 IS
+	PORT (
+		a, b : IN STD_LOGIC;
+		y : OUT STD_LOGIC);
+END and_2;
 
-architecture rtl of and_2 is
-begin process(a, b)
-begin
- y <= a and b;
-end process;
-end rtl;
+ARCHITECTURE rtl OF and_2 IS
+BEGIN
+	PROCESS (a, b)
+	BEGIN
+		y <= a AND b;
+	END PROCESS;
+END rtl;

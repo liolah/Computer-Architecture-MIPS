@@ -8,6 +8,7 @@ ENTITY instructionMemory IS
 		instruction : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 END instructionMemory;
+
 ARCHITECTURE rtl OF instructionMemory IS
 	TYPE RAM_16_x_32 IS ARRAY(0 TO 15) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
 	SIGNAL IM : RAM_16_x_32 := (
