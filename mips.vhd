@@ -125,8 +125,6 @@ ARCHITECTURE rtl OF mips IS
   END COMPONENT;
 
   SIGNAL pcOut, instruction, pcAdderOut, branchAdderPCAdderIn, branchAdderMemIn, branchAdderOut, pcMuxIn0, pcMuxIn1, pcMuxOut, seOut, regData1, regData2, regDataWrite, aluSrcMuxOut, aluOut, dataMemDataRead : STD_LOGIC_VECTOR(31 DOWNTO 0);
-  SIGNAL instructionAddress : STD_LOGIC_VECTOR(15 DOWNTO 0);
-  SIGNAL opCode : STD_LOGIC_VECTOR(5 DOWNTO 0);
   SIGNAL rMuxOut : STD_LOGIC_VECTOR(4 DOWNTO 0);
   SIGNAL aluControlSignal : STD_LOGIC_VECTOR(3 DOWNTO 0);
   SIGNAL aluOp : STD_LOGIC_VECTOR(1 DOWNTO 0);
@@ -139,14 +137,14 @@ BEGIN
   c4 : shl_2 PORT MAP(seOut, branchAdderMemIn);
   c5 : and_2 PORT MAP(branch, aluZero, pcMuxSel);
   c6 : instructionMemory PORT MAP(pcOut, instruction);
-  c7 : mux_2_5bit PORT MAP(pcOut(20 DOWNTO 16), pcOut(15 DOWNTO 11), regDst, rMuxOut);
-  c8 : register_file PORT MAP(clk, regWrite, pcOut(25 DOWNTO 21), pcOut(20 DOWNTO 16), rMuxOut, regDataWrite, regData1, regData2);
-  c9 : sign_extend PORT MAP(pcOut(15 DOWNTO 0), seOut);
+  c7 : mux_2_5bit PORT MAP(instruction(20 DOWNTO 16), instruction(15 DOWNTO 11), regDst, rMuxOut);
+  c8 : register_file PORT MAP(clk, regWrite, instruction(25 DOWNTO 21), instruction(20 DOWNTO 16), rMuxOut, regDataWrite, regData1, regData2);
+  c9 : sign_extend PORT MAP(instruction(15 DOWNTO 0), seOut);
   c10 : mux_2_32bit PORT MAP(regData2, seOut, aluSrc, aluSrcMuxOut);
-  c11 : alu_control PORT MAP(pcOut(5 DOWNTO 0), aluOp, aluControlSignal);
+  c11 : alu_control PORT MAP(instruction(5 DOWNTO 0), aluOp, aluControlSignal);
   c12 : mux_2_32bit PORT MAP(pcAdderOut, branchAdderOut, pcMuxSel, pcMuxOut);
   c13 : mux_2_32bit PORT MAP(aluOut, dataMemDataRead, memToReg, regDataWrite);
   c14 : dataMemory PORT MAP(clk, memWrite, memRead, aluOut, regData2, dataMemDataRead);
   c15 : alu_32bit PORT MAP(regData1, aluSrcMuxOut, aluControlSignal, aluOut, aluZero, aluCout);
-  c16 : control PORT MAP(pcOut(31 DOWNTO 26), reset, regDst, branch, memRead, memToReg, aluOp, memWrite, aluSrc, regWrite);
+  c16 : control PORT MAP(instruction(31 DOWNTO 26), reset, regDst, branch, memRead, memToReg, aluOp, memWrite, aluSrc, regWrite);
 END rtl;

@@ -33,7 +33,7 @@ BEGIN
     ELSE
       CASE opcode IS
         WHEN "000011" => -- load
-          regDst <= '1';
+          regDst <= '0';
           memToRegister <= '1';
           ALUop <= "00";
           branch <= '0';
@@ -58,7 +58,7 @@ BEGIN
           memRead <= '0';
           memWrite <= '0';
           ALUsrc <= '0';
-          regWrite <= '0';
+          regWrite <= '1';
       END CASE;
     END IF;
   END PROCESS;
