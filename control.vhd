@@ -1,4 +1,3 @@
-
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 
@@ -33,87 +32,33 @@ BEGIN
       regWrite <= '0';
     ELSE
       CASE opcode IS
-        WHEN "000000" => -- add
+        WHEN "000011" => -- load
           regDst <= '1';
-          memToRegister <= '0';
-          ALUop <= "00";
-          branch <= '0';
-          memRead <= '0';
-          memWrite <= '0';
-          ALUsrc <= '0';
-          regWrite <= '1';
-        WHEN "000001" => -- sliu
-          regDst <= '0';
-          memToRegister <= '0';
-          ALUop <= "10";
-          branch <= '0';
-          memRead <= '0';
-          memWrite <= '0';
-          ALUsrc <= '1';
-          regWrite <= '1';
-        WHEN "000010" => -- j
-          regDst <= '0';
-          memToRegister <= '0';
-          ALUop <= "00";
-          branch <= '0';
-          memRead <= '0';
-          memWrite <= '0';
-          ALUsrc <= '0';
-          regWrite <= '0';
-        WHEN "000011" => -- jal
-          regDst <= '0';
-          memToRegister <= '0';
-          ALUop <= "00";
-          branch <= '0';
-          memRead <= '0';
-          memWrite <= '0';
-          ALUsrc <= '0';
-          regWrite <= '1';
-        WHEN "000100" => -- lw
-          regDst <= '0';
           memToRegister <= '1';
-          ALUop <= "11";
+          ALUop <= "00";
           branch <= '0';
           memRead <= '1';
           memWrite <= '0';
           ALUsrc <= '1';
           regWrite <= '1';
-        WHEN "000101" => -- sw
+        WHEN "000001" => -- store
           regDst <= '0';
           memToRegister <= '0';
-          ALUop <= "11";
+          ALUop <= "00";
           branch <= '0';
           memRead <= '0';
           memWrite <= '1';
           ALUsrc <= '1';
           regWrite <= '0';
-        WHEN "000110" => -- beq
-          regDst <= '0';
+        WHEN OTHERS => -- r type instruction determined by function field
+          regDst <= '1';
           memToRegister <= '0';
-          ALUop <= "01";
-          branch <= '1';
+          ALUop <= "10";
+          branch <= '0';
           memRead <= '0';
           memWrite <= '0';
           ALUsrc <= '0';
           regWrite <= '0';
-        WHEN "000111" => -- addi
-          regDst <= '0';
-          memToRegister <= '0';
-          ALUop <= "11";
-          branch <= '0';
-          memRead <= '0';
-          memWrite <= '0';
-          ALUsrc <= '1';
-          regWrite <= '1';
-        WHEN OTHERS =>
-          regDst <= '1';
-          memToRegister <= '0';
-          ALUop <= "00";
-          branch <= '0';
-          memRead <= '0';
-          memWrite <= '0';
-          ALUsrc <= '0';
-          regWrite <= '1';
       END CASE;
     END IF;
   END PROCESS;
