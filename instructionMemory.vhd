@@ -17,9 +17,9 @@ ARCHITECTURE rtl OF instructionMemory IS
 		"00000000",
 		"00000001", -- load from memory location 1 and store in r1
 		"00001100",
-		"00000111",
+		"00000010",
 		"00000000",
-		"00000010", -- load from memory location 7 and store in r2
+		"00000111", -- load from memory location 7 and store in r2
 		"00000000",
 		"00100010",
 		"00011000",

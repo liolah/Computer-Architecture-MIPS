@@ -11,8 +11,25 @@ ENTITY register_file IS
 END register_file;
 
 ARCHITECTURE rtl OF register_file IS
-  TYPE ram_type IS ARRAY (0 TO 31) OF STD_LOGIC_VECTOR(31 DOWNTO 0);
-  SIGNAL reg_bank : ram_type;
+  TYPE ram_type IS ARRAY (0 TO 15) OF STD_LOGIC_VECTOR(31 DOWNTO 0);
+  SIGNAL reg_bank : ram_type := (
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000",
+    x"00000000"
+  );
 
 BEGIN
   PROCESS (clk)

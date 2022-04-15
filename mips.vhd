@@ -124,16 +124,16 @@ ARCHITECTURE rtl OF mips IS
       y : OUT STD_LOGIC);
   END COMPONENT;
 
-  SIGNAL pcOut, instruction, pcAdderOut, branchAdderPCAdderIn, branchAdderMemIn, branchAdderOut, pcMuxIn0, pcMuxIn1, pcMuxOut, seOut, regData1, regData2, regDataWrite, aluSrcMuxOut, aluOut, dataMemDataRead : STD_LOGIC_VECTOR(31 DOWNTO 0);
+  SIGNAL pcOut, instruction, pcAdderOut, branchAdderMemIn, branchAdderOut, pcMuxOut, seOut, regData1, regData2, regDataWrite, aluSrcMuxOut, aluOut, dataMemDataRead : STD_LOGIC_VECTOR(31 DOWNTO 0);
   SIGNAL rMuxOut : STD_LOGIC_VECTOR(4 DOWNTO 0);
   SIGNAL aluControlSignal : STD_LOGIC_VECTOR(3 DOWNTO 0);
   SIGNAL aluOp : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL branchAndIn0, branchAndIn1, branchAndOut, aluCout, aluZero, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, RegWrite : STD_LOGIC;
+  SIGNAL aluCout, aluZero, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, RegWrite : STD_LOGIC;
 
 BEGIN
   c1 : pc PORT MAP(pcMuxOut, pcOut);
   c2 : pc_adder PORT MAP(pcOut, pcAdderOut);
-  c3 : half_adder_32bit PORT MAP(pcAdderOut, branchAdderMemIn, branchAdderPCAdderIn);
+  c3 : half_adder_32bit PORT MAP(pcAdderOut, branchAdderMemIn, branchAdderOut);
   c4 : shl_2 PORT MAP(seOut, branchAdderMemIn);
   c5 : and_2 PORT MAP(branch, aluZero, pcMuxSel);
   c6 : instructionMemory PORT MAP(pcOut, instruction);

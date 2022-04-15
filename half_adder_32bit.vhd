@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 ENTITY half_adder_32bit IS
   PORT (
@@ -15,6 +15,6 @@ BEGIN
   PROCESS (a, b)
   BEGIN
     sumWithCarry <= ('0' & a) + ('0' & b);
+    sum <= sumWithCarry(31 DOWNTO 0);
   END PROCESS;
-  sum <= sumWithCarry(31 DOWNTO 0);
 END rtl;
