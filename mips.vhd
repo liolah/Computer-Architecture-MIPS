@@ -128,7 +128,7 @@ ARCHITECTURE rtl OF mips IS
   SIGNAL rMuxOut : STD_LOGIC_VECTOR(4 DOWNTO 0);
   SIGNAL aluControlSignal : STD_LOGIC_VECTOR(3 DOWNTO 0);
   SIGNAL aluOp : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL aluCout, aluZero, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, RegWrite : STD_LOGIC;
+  SIGNAL aluCout, aluZero, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, regWrite : STD_LOGIC;
 
 BEGIN
   c1 : pc PORT MAP(pcMuxOut, pcOut);
