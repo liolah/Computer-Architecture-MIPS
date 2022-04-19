@@ -47,6 +47,8 @@ ARCHITECTURE rtl OF mips IS
 
   COMPONENT pc IS
     PORT (
+      clk : IN STD_LOGIC;
+      rst : IN STD_LOGIC;
       a : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       y : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
@@ -131,7 +133,7 @@ ARCHITECTURE rtl OF mips IS
   SIGNAL aluCout, aluZero, pcMuxSel, regDst, branch, memRead, memToReg, memWrite, aluSrc, regWrite : STD_LOGIC;
 
 BEGIN
-  c1 : pc PORT MAP(pcMuxOut, pcOut);
+  c1 : pc PORT MAP(clk, reset, pcMuxOut, pcOut);
   c2 : pc_adder PORT MAP(pcOut, pcAdderOut);
   c3 : half_adder_32bit PORT MAP(pcAdderOut, branchAdderMemIn, branchAdderOut);
   c4 : shl_2 PORT MAP(seOut, branchAdderMemIn);

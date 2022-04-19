@@ -28,8 +28,8 @@ ARCHITECTURE rtl OF dataMemory IS
 		x"00000008",
 		x"00000009",
 		x"0000000A",
-		x"0000000B",
-		x"0000000C",
+		x"FF0F0F0F",
+		x"00F0F0FF",
 		x"0000000D",
 		x"0000000E",
 		x"0000000F"
